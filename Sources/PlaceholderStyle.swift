@@ -11,6 +11,11 @@ import UIKit
 public struct ImageSize {
     let width: CGFloat
     let height: CGFloat
+    
+    public init(width: CGFloat = CGFloat(50), height: CGFloat = CGFloat(50)) {
+        self.width = width
+        self.height = height
+    }
 }
 
 public protocol PlaceholderViewStyle {

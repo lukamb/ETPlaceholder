@@ -8,7 +8,7 @@
 
 import UIKit
 
-enum PlaceholderViewArrangement {
+public enum PlaceholderViewArrangement {
     case imageTitleDescButton
 }
 
@@ -18,7 +18,7 @@ public class PlaceholderView: UIView {
     
     // MARK: Public
     
-    var show: Bool? {
+    public var show: Bool? {
         didSet {
             if let show = show {
                 show == true ? showPlaceholder() : hidePlaceholder()
@@ -26,7 +26,7 @@ public class PlaceholderView: UIView {
         }
     }
     
-    var actionButtonPressed: (() -> Void)?
+    public var actionButtonPressed: (() -> Void)?
     
     // MARK: Private
     
@@ -49,13 +49,16 @@ public class PlaceholderView: UIView {
     
     // MARK: - Initialization
     
-    init(style: PlaceholderViewStyle, content: PlaceholderViewContent, arrangement: PlaceholderViewArrangement = .imageTitleDescButton) {
+    public init(style: PlaceholderViewStyle, content: PlaceholderViewContent, arrangement: PlaceholderViewArrangement = .imageTitleDescButton) {
         self.style = style
         self.content = content
         self.arrangement = arrangement
         super.init(frame: .zero)
         
         setupContent()
+        
+        // Default hide placeholder
+        self.isHidden = true
     }
     
     required public init?(coder aDecoder: NSCoder) {
@@ -115,12 +118,20 @@ public class PlaceholderView: UIView {
     
     private func imageTitleDescButtonLayout() {
         
-        var topView = contenView
+        var topView: UIView?
         var lastView: UIView?
+        
+        var topConstraint: Constraint {
+            if let topView = topView {
+                return equal(topView, \UIView.topAnchor, \UIView.bottomAnchor, constant: style.space)
+            }
+            
+            return equal(contenView, \UIView.topAnchor, constant: style.space)
+        }
         
         if let imageView = imageView {
             imageView.addConstraints([
-                equal(contenView, \UIView.topAnchor),
+                equal(contenView, \UIView.topAnchor, constant: style.space),
                 equal(contenView, \UIView.centerXAnchor),
                 equal(\UIView.heightAnchor, constant: style.imageSize.height),
                 equal(\UIView.heightAnchor, constant: style.imageSize.width)
@@ -133,7 +144,7 @@ public class PlaceholderView: UIView {
         if let titleLabel = titleLabel {
             
             titleLabel.addConstraints([
-                equal(topView, \UIView.bottomAnchor, \UIView.topAnchor, constant: style.space),
+                topConstraint,
                 equal(contenView, \UIView.leftAnchor),
                 equal(contenView, \UIView.rightAnchor),
             ])
@@ -145,7 +156,7 @@ public class PlaceholderView: UIView {
         if let descriptionLabel = descriptionLabel {
             
             descriptionLabel.addConstraints([
-                equal(topView, \UIView.bottomAnchor, \UIView.topAnchor, constant: style.space),
+                topConstraint,
                 equal(contenView, \UIView.leftAnchor),
                 equal(contenView, \UIView.rightAnchor),
                 ])
@@ -157,10 +168,10 @@ public class PlaceholderView: UIView {
         if let actionButton = actionButton {
             
             actionButton.addConstraints([
-                equal(topView, \UIView.bottomAnchor, \UIView.topAnchor, constant: style.space),
+                topConstraint,
                 equal(contenView, \UIView.leftAnchor),
                 equal(contenView, \UIView.rightAnchor),
-                ])
+            ])
             
             topView = actionButton
             lastView = actionButton
@@ -180,11 +191,14 @@ public class PlaceholderView: UIView {
         titleLabel?.font = style.titleFont
         titleLabel?.textColor = style.titleColor
         titleLabel?.numberOfLines = 0
+        titleLabel?.textAlignment = .center
         
         descriptionLabel?.font = style.descriptionFont
         descriptionLabel?.textColor = style.descriptionColor
         descriptionLabel?.numberOfLines = 0
+        descriptionLabel?.textAlignment = .center
         
+        imageView?.contentMode = .scaleAspectFit
     }
     
     // MARK: - Action
@@ -192,7 +206,6 @@ public class PlaceholderView: UIView {
     @objc private func actionButtonClicked() {
         actionButtonPressed?()
     }
-    
 }
 
 // MARK: - Show - hide placeholder

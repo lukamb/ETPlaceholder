@@ -15,7 +15,7 @@ public struct PlaceholderViewContent {
     let image: UIImage?
     let actionButtonTitle: String?
     
-    init(title: String? = nil, description: String? = nil, image: UIImage? = nil, actionButtonTitle: String? = nil) {
+    public init(title: String? = nil, description: String? = nil, image: UIImage? = nil, actionButtonTitle: String? = nil) {
         self.title = title
         self.description = description
         self.image = image
