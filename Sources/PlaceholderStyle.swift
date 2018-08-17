@@ -8,6 +8,11 @@
 
 import UIKit
 
+public struct ImageSize {
+    let width: CGFloat
+    let height: CGFloat
+}
+
 public protocol PlaceholderViewStyle {
     
     // MARK: - Color
@@ -17,5 +22,10 @@ public protocol PlaceholderViewStyle {
     // MARK: - Font
     var titleFont: UIFont { get }
     var descriptionFont: UIFont { get }
+    
+    // MARK: - Padding
+    var margin: CGFloat { get }
+    var imageSize: ImageSize { get }
+    var space: CGFloat { get }
 
 }

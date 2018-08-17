@@ -1,5 +1,5 @@
 //
-//  ETPlaceholderViewTests.swift
+//  ETPlaceholderTests.swift
 //  Etnetera a.s.
 //
 //  Created by Kien Le on 17/08/2018.
@@ -8,14 +8,13 @@
 
 import Foundation
 import XCTest
-import ETPlaceholderView
+import ETPlaceholder
 
-class ETPlaceholderViewTests: XCTestCase {
-    
+class ETPlaceholderTests: XCTestCase {
     func testExample() {
         // This is an example of a functional test case.
         // Use XCTAssert and related functions to verify your tests produce the correct results.
-        //// XCTAssertEqual(ETPlaceholderView().text, "Hello, World!")
+        //// XCTAssertEqual(ETPlaceholder().text, "Hello, World!")
     }
     
     static var allTests = [
