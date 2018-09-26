@@ -23,12 +23,12 @@ open class PlaceholderView: UIView {
 
     // MARK: private
 
-    private let content: PlaceholderViewContent
+    private let content: Content
     private let style: PlaceholderViewStyle
 
     // MARK: - Initialization
     
-    public init(style: PlaceholderViewStyle, content: PlaceholderViewContent) {
+    public init(style: PlaceholderViewStyle, content: Content) {
         self.style = style
         self.content = content
         super.init(frame: .zero)

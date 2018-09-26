@@ -13,7 +13,7 @@ extension PlaceholderView {
     
     static func loadingView() -> PlaceholderView {
         let style = PlaceholderStyle()
-        let content = PlaceholderViewContent(image: nil, title: "Loading ...", description: nil, button: nil)
+        let content = Content(image: nil, title: "Loading ...", description: nil, button: nil)
         let placeHolder = PlaceholderView(style: style, content: content)
         placeHolder.backgroundColor = UIColor.lightGray
         return placeHolder
@@ -21,7 +21,7 @@ extension PlaceholderView {
     
     static func errorView() -> PlaceholderView {
         let style = PlaceholderStyle()
-        let content = PlaceholderViewContent(image: UIImage(named: "close"), title: "Error", description: "No internet", buttonTitle: "Refresh button")
+        let content = Content(image: UIImage(named: "close"), title: "Error", description: "No internet", buttonTitle: "Refresh button")
         let placeHolder = PlaceholderView(style: style, content: content)
         placeHolder.backgroundColor = UIColor.lightGray
         return placeHolder
@@ -29,7 +29,7 @@ extension PlaceholderView {
     
     static func noData() -> PlaceholderView {
         let style = PlaceholderStyle()
-        let content = PlaceholderViewContent(image: nil, title: "Error", description: "No Data", buttonTitle: "Refresh button")
+        let content = Content(image: nil, title: "Error", description: "No Data", buttonTitle: "Refresh button")
         let placeHolder = PlaceholderView(style: style, content: content)
         placeHolder.backgroundColor = UIColor.lightGray
         return placeHolder
