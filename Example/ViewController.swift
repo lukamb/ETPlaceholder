@@ -29,11 +29,7 @@ class ViewController: UIViewController {
         [loadingView, errorView, noData].forEach(view.addSubview)
         
         setupLayout()
-        
-        loadingView.show = true
-        DispatchQueue.main.asyncAfter(deadline: .now() + 5) {
-            self.showError()
-        }
+        showLoading()
     }
     
     // MARK: - Layout
@@ -61,11 +57,20 @@ class ViewController: UIViewController {
             equal(view, \UIView.bottomAnchor)
         ])
     }
-    
+
+    private func showLoading() {
+        loadingView.isHidden = false
+        errorView.isHidden = true
+        noData.isHidden = true
+        DispatchQueue.main.asyncAfter(deadline: .now() + 5) {
+            self.showError()
+        }
+    }
+
     private func showError() {
-        loadingView.show = false
-        noData.show = false
-        errorView.show = true
+        loadingView.isHidden = true
+        noData.isHidden = true
+        errorView.isHidden = false
         
         DispatchQueue.main.asyncAfter(deadline: .now() + 5) {
             self.showNoData()
@@ -73,9 +78,9 @@ class ViewController: UIViewController {
     }
     
     private func showNoData() {
-        loadingView.show = false
-        noData.show = true
-        errorView.show = false
+        loadingView.isHidden = true
+        noData.isHidden = false
+        errorView.isHidden = true
     }
 }
 

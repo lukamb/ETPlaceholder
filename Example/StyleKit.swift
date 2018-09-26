@@ -11,17 +11,18 @@ import ETPlaceholderView
 
 struct PlaceholderStyle: PlaceholderViewStyle {
     var titleColor = UIColor.black
-    
     var descriptionColor = UIColor.red
-    
+    var buttonColor = UIColor.red
+    var buttonHighlightedColor = UIColor.red.withAlphaComponent(0.3)
+
     var titleFont = UIFont.systemFont(ofSize: 30)
-    
     var descriptionFont = UIFont.systemFont(ofSize: 18)
+    var buttonFont = UIFont.boldSystemFont(ofSize: 24)
     
     var margin = CGFloat(10)
     
-    var imageSize = ImageSize(width: 80, height: 80)
+    var imageSize: CGSize? = CGSize(width: 20, height: 20)
     
-    var space = CGFloat(15)
+    var spacing = CGFloat(15)
     
 }
