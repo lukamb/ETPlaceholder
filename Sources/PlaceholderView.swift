@@ -10,19 +10,25 @@ import UIKit
 
 open class PlaceholderView: UIView {
     // MARK: - Properties
-    
     // MARK: public
 
+    /// StackView holds all placeholder components and cares about layout.
+    /// If all components are defined in Content, StackView layouts them in
+    /// the following order: image, title, description, button
     public let stackView = UIStackView()
-    public var titleLabel: UILabel?
-    public var descriptionLabel: UILabel?
+    /// Image is layouted on first position.
     public var imageView: UIImageView?
+    /// Title is layouted on second position.
+    public var titleLabel: UILabel?
+    /// Desription is layouted on third position.
+    public var descriptionLabel: UILabel?
+    /// Button is layouted on the last position
     public var button: UIButton?
     
-    public var actionButtonPressed: (() -> Void)?
 
     // MARK: private
 
+    private var actionButtonPressed: (() -> Void)?
     private let content: Content
     private let style: PlaceholderViewStyle
 
@@ -47,7 +53,7 @@ open class PlaceholderView: UIView {
 
         if let image = content.image {
             imageView = UIImageView()
-            imageView?.image = image
+            imageView?.image = image.loadImage()
             stackView.addArrangedSubview(imageView!)
         }
 
@@ -79,10 +85,10 @@ open class PlaceholderView: UIView {
     
     open func setupLayout() {
         stackView.translatesAutoresizingMaskIntoConstraints = false
-        stackView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: style.margin).isActive = true
-        stackView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -style.margin).isActive = true
-        stackView.topAnchor.constraint(greaterThanOrEqualTo: topAnchor, constant: style.margin).isActive = true
-        stackView.bottomAnchor.constraint(lessThanOrEqualTo: bottomAnchor, constant: -style.margin).isActive = true
+        stackView.leadingAnchor.constraint(equalTo: leadingAnchor).isActive = true
+        stackView.trailingAnchor.constraint(equalTo: trailingAnchor).isActive = true
+        stackView.topAnchor.constraint(greaterThanOrEqualTo: topAnchor).isActive = true
+        stackView.bottomAnchor.constraint(lessThanOrEqualTo: bottomAnchor).isActive = true
         stackView.centerYAnchor.constraint(equalTo: centerYAnchor).isActive = true
 
         stackView.spacing = style.spacing
@@ -119,5 +125,15 @@ open class PlaceholderView: UIView {
 
     @objc private func actionButtonClicked() {
         actionButtonPressed?()
+    }
+}
+
+private extension PlaceholderView.Content.Image {
+    func loadImage() -> UIImage? {
+        switch self {
+        case .named(let name): return UIImage(named: name)
+        case .data(let data): return UIImage(data: data)
+        case .contentsOfFile(let file): return UIImage(contentsOfFile: file)
+        }
     }
 }

@@ -21,7 +21,7 @@ extension PlaceholderView {
     
     static func errorView() -> PlaceholderView {
         let style = PlaceholderStyle()
-        let content = Content(image: UIImage(named: "close"), title: "Error", description: "No internet", buttonTitle: "Refresh button")
+        let content = Content(image: .named("close"), title: "Error", description: "No internet", buttonTitle: "Refresh button")
         let placeHolder = PlaceholderView(style: style, content: content)
         placeHolder.backgroundColor = UIColor.lightGray
         return placeHolder
