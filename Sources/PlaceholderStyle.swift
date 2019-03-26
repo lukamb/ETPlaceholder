@@ -10,7 +10,6 @@ import UIKit
 
 /// Defines style for `PlaceholderView`.
 public protocol PlaceholderViewStyle {
-    
     // MARK: - Color
 
     /// Defines color for title label
